@@ -27,6 +27,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.UIManager;
 
 public class ClientGUI extends JFrame
@@ -46,7 +47,11 @@ public class ClientGUI extends JFrame
         //Chat feld plazieren
         chatArea=new JTextArea("");
         chatArea.setEditable(false);
-        add(new JScrollPane(chatArea));
+        chatArea.setLineWrap(true);
+        JScrollPane scrollPane=new JScrollPane(chatArea);
+        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        add(scrollPane);
         
         //Unteres Panel initialiseren
         JPanel bottomPanel=new JPanel(new BorderLayout());
