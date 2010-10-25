@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 
 public class ClientThread extends Thread
@@ -34,8 +35,8 @@ public class ClientThread extends Thread
         try
         {
             //Streams initialiseren
-            reader=new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            writer=new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+            reader=new BufferedReader(new InputStreamReader(socket.getInputStream(), Charset.forName("UTF8")));
+            writer=new BufferedWriter(new OutputStreamWriter(socket.getOutputStream(), Charset.forName("UTF8")));
             this.socket=socket;
             
             //Lese bis du eine Leerzeile kriegst

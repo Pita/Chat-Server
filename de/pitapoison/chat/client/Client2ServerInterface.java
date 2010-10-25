@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
+import java.nio.charset.Charset;
 
 public class Client2ServerInterface extends Thread
 {
@@ -35,8 +36,8 @@ public class Client2ServerInterface extends Thread
         
         //Socket öffnen
         Socket serverSocket=new Socket(servername, SERVER_PORT);
-        reader=new BufferedReader(new InputStreamReader(serverSocket.getInputStream()));
-        writer=new BufferedWriter(new OutputStreamWriter(serverSocket.getOutputStream()));
+        reader=new BufferedReader(new InputStreamReader(serverSocket.getInputStream(), Charset.forName("UTF8")));
+        writer=new BufferedWriter(new OutputStreamWriter(serverSocket.getOutputStream(), Charset.forName("UTF8")));
         
         //User authentifizieren
         writer.write("User:" + username + "\n");
