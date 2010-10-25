@@ -93,25 +93,35 @@ public class ClientThread extends Thread
     
     private void sendAll(String message) throws IOException
     {
+        if(message==null && message.equals("null"))
+            return;
+        
         message+="\n";
         
         //Daten an alle Clients schicken
         for(ClientThread client: clients)
         {
             client.writer.write(message);
+            System.out.println(message);
             client.writer.flush();
         }
     }
     
     public void run()
     {
+        boolean userActive=true;
+        
         //Endlosschleife
-        while(true)
+        while(userActive)
         {
             try
             {
                 //Zeile lesen
                 String inputLine=reader.readLine();
+                
+                //Wenn ein Null Pointer gelesen wird, wurde die Verbindung von extern geschlossen
+                if(inputLine==null)
+                    throw new IOException();
                 
                 //String der an alle Clients geschickt werden soll
                 String busLine="<" + username + "> " + inputLine;
@@ -138,7 +148,7 @@ public class ClientThread extends Thread
                 }
                 
                 //Endlosschleife abrechen
-                break;
+                userActive=false;
             }
         }
     }
