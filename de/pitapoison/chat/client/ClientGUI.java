@@ -19,21 +19,25 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 
 public class ClientGUI extends JFrame
 {
     private Client2ServerInterface serverInterface;
-    private JTextArea chatArea;
+    private JLabel chatArea;
     private JTextField inputField;
     private JButton sendButton;
     
@@ -45,9 +49,8 @@ public class ClientGUI extends JFrame
         setLayout(new BorderLayout());
    
         //Chat feld plazieren
-        chatArea=new JTextArea("");
-        chatArea.setEditable(false);
-        chatArea.setLineWrap(true);
+        chatArea=new JLabel("<html>");
+        chatArea.setVerticalAlignment(SwingConstants.TOP);
         JScrollPane scrollPane=new JScrollPane(chatArea);
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -144,7 +147,10 @@ public class ClientGUI extends JFrame
     {
         if(message != null)
         {
-            chatArea.setText(chatArea.getText() + message + "\n");
+            String time=DateFormat.getTimeInstance().format(new Date());
+            message="(" + time + ") " + message;
+            System.out.println();
+            chatArea.setText(chatArea.getText() + message + "<br>\n");
             this.toFront();
         }
     }

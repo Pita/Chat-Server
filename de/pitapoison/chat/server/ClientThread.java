@@ -120,7 +120,7 @@ public class ClientThread extends Thread
                     throw new IOException();
                 
                 //String der an alle Clients geschickt werden soll
-                String busLine="<" + username + "> " + inputLine;
+                String busLine="<b>&lt;" + username + "&gt;</b> " + inputLine;
                 
                 //An alle senden
                 sendAll(busLine);
