@@ -57,7 +57,7 @@ public class ServerGUI
     public static void main(String[] args)
     {
         //Wenn es nicht im Headless Modus, also ohne GUI gestartet wurde
-        if(args.length==0 || args[1].equals("headless"))
+        if(args.length==0 || !args[1].equals("headless"))
             ServerGUI.showLog();
         
         new Server();
