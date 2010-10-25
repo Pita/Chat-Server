@@ -93,9 +93,6 @@ public class ClientThread extends Thread
     
     private void sendAll(String message) throws IOException
     {
-        if(message==null && message.equals("null"))
-            return;
-        
         message+="\n";
         
         //Daten an alle Clients schicken
@@ -109,10 +106,8 @@ public class ClientThread extends Thread
     
     public void run()
     {
-        boolean userActive=true;
-        
         //Endlosschleife
-        while(userActive)
+        while(true)
         {
             try
             {
@@ -148,7 +143,7 @@ public class ClientThread extends Thread
                 }
                 
                 //Endlosschleife abrechen
-                userActive=false;
+                break;
             }
         }
     }
