@@ -27,11 +27,13 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 public class ClientGUI extends JFrame
@@ -40,6 +42,7 @@ public class ClientGUI extends JFrame
     private JLabel chatArea;
     private JTextField inputField;
     private JButton sendButton;
+    private JScrollPane chatAreaScrollPane;
     
     public ClientGUI(String servername, String username)
     {
@@ -51,10 +54,10 @@ public class ClientGUI extends JFrame
         //Chat feld plazieren
         chatArea=new JLabel("<html>");
         chatArea.setVerticalAlignment(SwingConstants.TOP);
-        JScrollPane scrollPane=new JScrollPane(chatArea);
-        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        add(scrollPane);
+        chatAreaScrollPane=new JScrollPane(chatArea);
+        chatAreaScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        chatAreaScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        add(chatAreaScrollPane);
         
         //Unteres Panel initialiseren
         JPanel bottomPanel=new JPanel(new BorderLayout());
@@ -147,9 +150,23 @@ public class ClientGUI extends JFrame
     {
         if(message != null)
         {
+            //Erzeuge einen Zeitstempel für die neue Nachricht
             String time=DateFormat.getTimeInstance().format(new Date());
             message="(" + time + ") " + message;
+            
+            //Setze den neuen Text, mitsamt Zeilenumbruch, in das Panel
             chatArea.setText(chatArea.getText() + message + "<br>\n");
+            
+            //Scroll das Panel herunter
+            SwingUtilities.invokeLater( new Runnable() 
+            {
+                public void run() 
+                {
+                    JScrollBar bar=chatAreaScrollPane.getVerticalScrollBar();
+                    bar.setValue(chatArea.getHeight());
+                }
+            });
+            
             this.toFront();
         }
     }
