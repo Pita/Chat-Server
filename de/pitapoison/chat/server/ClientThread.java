@@ -100,7 +100,6 @@ public class ClientThread extends Thread
         for(ClientThread client: clients)
         {
             client.writer.write(message);
-            System.out.println(message);
             client.writer.flush();
         }
     }

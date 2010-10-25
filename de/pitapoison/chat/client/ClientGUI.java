@@ -149,7 +149,6 @@ public class ClientGUI extends JFrame
         {
             String time=DateFormat.getTimeInstance().format(new Date());
             message="(" + time + ") " + message;
-            System.out.println();
             chatArea.setText(chatArea.getText() + message + "<br>\n");
             this.toFront();
         }
