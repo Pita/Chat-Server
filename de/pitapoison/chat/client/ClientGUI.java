@@ -13,6 +13,7 @@
 package de.pitapoison.chat.client;
 
 import java.awt.BorderLayout;
+import java.awt.SystemTray;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -137,7 +138,10 @@ public class ClientGUI extends JFrame
     public void addMessage(String message)
     {
         if(message != null)
+        {
             chatArea.setText(chatArea.getText() + message + "\n");
+            this.toFront();
+        }
     }
     
     public void err(String message, Exception e)
